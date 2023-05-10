@@ -69,17 +69,17 @@ INSERT INTO ThreeBedrooms(Location,Quadrature,PricePerMonth,isFree,Furniture,Pre
 INSERT INTO ThreeBedrooms(Location,Quadrature,PricePerMonth,isFree,Furniture,Premises,TenantID,OwnID,TakenDate) VALUES ('Burgas zhk Zornica','52E',600,'True','Fully furnished','Yes(Garage)',1,1,'2022-10-02');
 
 
---1
+
 SELECT * FROM TwoBedroom
 SELECT * FROM ThreeBedrooms
 
---2
+
 SELECT * FROM TwoBedroom
 ORDER BY TwoPricePerMonth
 SELECT * FROM ThreeBedrooms
 ORDER BY PricePerMonth
 
---3
+
 SELECT * FROM TwoBedroom
 UPDATE TwoBedroom
 SET TwoPricePerMonth=TwoPricePerMonth-TwoPricePerMonth*20/100
@@ -90,41 +90,48 @@ UPDATE ThreeBedrooms
 SET PricePerMonth=PricePerMonth-PricePerMonth*20/100
 WHERE FreeDate BETWEEN '2022-10-27' AND '2022-11-27'
 
---4
+
 SELECT * FROM TwoBedroom INNER JOIN Tenant ON TwoBedroom.TwoTenantID=Tenant.TenID
 WHERE TwoisFree='True'
 
 SELECT * FROM ThreeBedrooms INNER JOIN Tenant ON ThreeBedrooms.TenantID=Tenant.TenID
 WHERE isFree='True'
 
---5
+
 SELECT * FROM ThreeBedrooms
 WHERE Furniture NOT LIKE 'No'
 
 SELECT * FROM TwoBedroom
 WHERE TwoFurniture NOT LIKE 'No'
 
---6
+
 SELECT * FROM ThreeBedrooms
 WHERE Premises NOT LIKE 'No'
 
 SELECT * FROM TwoBedroom
 WHERE TwoPremises NOT LIKE 'No'
 
---7
+
 SELECT * FROM TwoBedroom
 WHERE TwoisFree='True'
+
+UPDATE TwoBedroom
+SET TwoisFree = 'False' , TwoFreeDate = NULL , TwoTenantID=1, TwoTakenDate=GETDATE()
+WHERE TwoBID=2
+
+UPDATE TwoBedroom
+SET TwoisFree = 'True' , TwoFreeDate = '2022-10-10' , TwoTenantID=NULL, TwoTakenDate=NULL 
+WHERE TwoBID=2
 
 SELECT * FROM ThreeBedrooms
 WHERE isFree='True'
 
---8
-
---9
 
 SELECT * FROM TwoBedroom
 UPDATE TwoBedroom 
-SET TwoQuadrature ='55'
+SET TwoQuadrature ='63E,32N'
+WHERE TwoBID = 2
 
---10
-DELETE FROM Tenant WHERE TenID=1;
+
+DELETE FROM Tenant
+WHERE TenID=1;
